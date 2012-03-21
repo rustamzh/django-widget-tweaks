@@ -55,6 +55,11 @@ class SimpleAttrTest(TestCase):
         assertIn('foo="bar"', res)
         assertIn('bar="baz"', res)
 
+    def test_duplicate_chaining(self):
+        res = render_field('simple', 'attr', 'foo:bar', 'attr', 'foo:baz')
+        assertNotIn('foo="bar"', res)
+        assertIn('foo="baz"', res)
+
     def test_add_class(self):
         res = render_field('simple', 'add_class', 'foo')
         assertIn('class="foo"', res)
