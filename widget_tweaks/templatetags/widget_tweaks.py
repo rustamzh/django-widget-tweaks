@@ -136,9 +136,9 @@ class FieldAttributeNode(Node):
         self.append_attrs = append_attrs
 
     def render(self, context):
-        bounded_field = self.field.resolve(context)
+        bound_field = self.field.resolve(context)
         for k, v in self.set_attrs:
-            bounded_field = set_attr(bounded_field, '%s:%s' % (k,v))
+            bound_field = set_attr(bound_field, '%s:%s' % (k,v))
         for k, v in self.append_attrs:
-            bounded_field = append_attr(bounded_field, '%s:%s' % (k,v))
-        return bounded_field
+            bound_field = append_attr(bound_field, '%s:%s' % (k,v))
+        return bound_field
