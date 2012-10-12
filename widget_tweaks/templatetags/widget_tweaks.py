@@ -138,6 +138,12 @@ class FieldAttributeNode(Node):
 
     def render(self, context):
         bounded_field = self.field.resolve(context)
+        if bounded_field.errors and 'WIDGET_ERROR_CLASS' in context:
+            bounded_field = append_attr(bounded_field, 'class:%s' %
+                                        Variable('WIDGET_ERROR_CLASS'))
+        if bounded_field.errors and 'WIDGET_REQUIRED_CLASS' in context:
+            bounded_field = append_attr(bounded_field, 'class:%s' %
+                                        Variable('WIDGET_REQUIRED_CLASS'))
         for k, v in self.set_attrs:
             bounded_field = set_attr(bounded_field, '%s:%s' % (k,v.resolve(context)))
         for k, v in self.append_attrs:
